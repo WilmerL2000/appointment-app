@@ -53,6 +53,7 @@ property. This method is used to compare the password entered by the user with t
 stored in the database. It takes a `passwordForm` parameter which is the password entered by the
 user and returns a promise that resolves to a boolean value indicating whether the password matches
 the hashed password or not. It uses the `bcrypt.compare()` method to compare the passwords. */
+//!This is how you add a method to the schema
 vetSchema.methods.checkPassword = async function (passwordForm) {
   return await bcrypt.compare(passwordForm, this.password);
 };

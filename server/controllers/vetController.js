@@ -48,6 +48,15 @@ const profile = (req, res) => {
   }
 };
 
+/**
+ * This function confirms a user's account by setting their token to null and their confirmed status to
+ * true.
+ * @param req - The request object, which contains information about the incoming HTTP request such as
+ * headers, parameters, and body.
+ * @param res - The "res" parameter is the response object that is used to send a response back to the
+ * client making the request. It contains methods and properties that allow the server to send data,
+ * set headers, and control the HTTP status code of the response.
+ */
 const confirm = async (req, res) => {
   try {
     const { token } = req.params;
