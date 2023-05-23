@@ -54,8 +54,8 @@ const register = async (req, res) => {
  */
 const profile = (req, res) => {
   try {
-    const { vet } = req;
-    res.json({ profile: vet });
+    const { veterinary } = req;
+    res.json(veterinary);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

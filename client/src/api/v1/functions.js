@@ -2,6 +2,22 @@ import { vetApi } from './api';
 import { toast } from 'sonner';
 
 /**
+ * This function logs in a user by sending a POST request to a server and storing the received token in
+ * local storage.
+ * @param values - The `values` parameter is an object that contains the user's login credentials, such
+ * as their email and password. This object is passed as the second argument to the `post` method of
+ * the `vetApi` object, which sends a POST request to the `/login` endpoint of the API with
+ */
+const login = async (values) => {
+  try {
+    const { data } = await vetApi.post('/login', values);
+    localStorage.setItem('token', data.token);
+  } catch (error) {
+    toast.error(error.response.data.msg);
+  }
+};
+
+/**
  * The function registers a user by sending their information to an API and displays a success message
  * or an error message if there is an issue.
  * @param values - The "values" parameter is an object that contains the data to be sent in the POST
@@ -84,10 +100,29 @@ const restorePassword = async ({ token, password }) => {
   }
 };
 
+const getUserProfile = async () => {
+  const token = localStorage.getItem('token');
+  if (!token) return;
+
+  try {
+    const { data } = await vetApi('/profile', {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return data;
+  } catch (error) {
+    console.log(error.response.data.msg);
+  }
+};
+
 export {
+  login,
   register,
   confirmAccount,
   forgotPassword,
   checkToken,
   restorePassword,
+  getUserProfile,
 };

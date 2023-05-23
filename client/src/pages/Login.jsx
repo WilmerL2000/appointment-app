@@ -5,10 +5,15 @@ import { loginSchema } from '../schemas/schemas';
 import Title from '../components/Title';
 import { SubmitButton } from '../components/buttons';
 import { InputPassword, InputText } from '../components/inputs';
+import { login } from '../api/v1/functions';
 
 export const Login = () => {
-  const handleLogin = (values, onSubmitProps) => {
-    console.log(values);
+  const navigate = useNavigate();
+
+  const handleLogin = async (values, onSubmitProps) => {
+    await login(values);
+    onSubmitProps.resetForm();
+    navigate('/admin');
   };
 
   return (
