@@ -1,6 +1,8 @@
-import generateId from '../helpers/generateId.js';
+import { emailForgotPassword } from '../helpers/emailForgotPassword.js';
+import { emailRegister } from '../helpers/emailRegister.js';
 import generateJWT from '../helpers/generateJWT.js';
 import Vet from '../mongodb/models/Vet.js';
+import { uid } from 'uid';
 
 /**
  * This is an asynchronous function that registers a new vet by saving their name, email, and password
@@ -16,6 +18,12 @@ const register = async (req, res) => {
   try {
     const { name, email, password } = req.body;
 
+    const existUser = await Vet.findOne({ email });
+    if (existUser) {
+      const error = new Error('Usuario ya registrado');
+      return res.status(400).json({ msg: error.message });
+    }
+
     const vet = new Vet({
       name,
       email,
@@ -23,6 +31,11 @@ const register = async (req, res) => {
     });
 
     const savedVet = await vet.save();
+
+    /* Likely a function that sends an email to the newly registered veterinarian to confirm their
+    email address. However, the implementation of the `emailRegister()` function is not shown in
+    this code snippet, so it is impossible to know for sure what it does without further context. */
+    emailRegister({ email, name, token: vet.token });
 
     res.status(201).send(savedVet);
   } catch (err) {
@@ -65,14 +78,14 @@ const confirm = async (req, res) => {
 
     if (!confirmedUser) {
       const error = new Error('Token inválido');
-      res.status(404).json({ msg: error.message });
+      return res.status(404).json({ msg: error.message });
     }
 
     confirmedUser.token = null;
     confirmedUser.confirmed = true;
     await confirmedUser.save();
 
-    res.send({ msg: 'Usuario confirmado correctamente' });
+    res.status(200).json({ msg: 'Usuario confirmado correctamente' });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -95,19 +108,19 @@ const authenticate = async (req, res) => {
 
     if (!user) {
       const error = new Error('El usuario no existe');
-      res.status(403).json({ msg: error.message });
+      return res.status(403).json({ msg: error.message });
     }
 
     if (!user.confirmed) {
       const error = new Error('Su correo no ha sido confirmado');
-      res.status(403).json({ msg: error.message });
+      return res.status(403).json({ msg: error.message });
     }
 
     if (await user.checkPassword(password)) {
       res.json({ token: generateJWT(user._id) });
     } else {
       const error = new Error('Contraseña incorrecta');
-      res.status(403).json({ msg: error.message });
+      return res.status(403).json({ msg: error.message });
     }
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -131,11 +144,17 @@ const forgotPassword = async (req, res) => {
 
     if (!existVet) {
       const error = new Error('El usuario no existe');
-      res.status(400).json({ msg: error.message });
+      return res.status(400).json({ msg: error.message });
     }
 
-    existVet.token = generateId();
+    existVet.token = uid(25);
     await existVet.save();
+
+    emailForgotPassword({
+      email,
+      name: existVet.name,
+      token: existVet.token,
+    });
 
     res.json({ msg: 'Hemos enviado un email con las instrucciones' });
   } catch (err) {
@@ -161,7 +180,7 @@ const findOutToken = async (req, res) => {
       res.json({ msg: 'Token válido' });
     } else {
       const error = new Error('Token inválido');
-      res.status(400).json({ msg: error.message });
+      return res.status(400).json({ msg: error.message });
     }
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -187,7 +206,7 @@ const newPassword = async (req, res) => {
 
     if (!vet) {
       const error = new Error('Hubo un error');
-      res.status(400).json({ msg: error.message });
+      return res.status(400).json({ msg: error.message });
     }
 
     vet.token = null;

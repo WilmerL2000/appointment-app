@@ -1,13 +1,53 @@
+import { Form, Formik } from 'formik';
+import { Link, useNavigate } from 'react-router-dom';
+import { initialValuesLogin } from '../../schemas/initialValues';
+import { loginSchema } from '../../schemas/schemas';
+import Title from '../components/Title';
+import { SubmitButton } from '../components/buttons';
+import { InputPassword, InputText } from '../components/inputs';
+
 export const Login = () => {
+  const handleLogin = (values, onSubmitProps) => {
+    console.log(values);
+  };
+
   return (
     <>
       <div>
-        <h1 className="text-indigo-600 font-black text-6xl">
-          Inicia Sesión y Administra tus{' '}
-          <span className="text-black">Pacientes</span>
-        </h1>
+        <Title mainText="Inicia Sesión y Administra tus" subText="Pacientes" />
       </div>
-      <div>2</div>
+      <div className="md:w-5/6 w-full mt-20 md:mt-5 shadow-lg px-5 py-10 rounded-xl bg-white">
+        <Formik
+          onSubmit={handleLogin}
+          initialValues={initialValuesLogin}
+          validationSchema={loginSchema}
+        >
+          {() => (
+            <Form>
+              <div className="my-5">
+                <InputText label="Email" name="email" />
+              </div>
+              <div className="my-5">
+                <InputPassword label="Contraseña" name="password" />
+              </div>
+              <div className=" flex justify-center">
+                <SubmitButton text="Iniciar sesión" />
+              </div>
+            </Form>
+          )}
+        </Formik>
+        <nav className="mt-10 lg:flex lg:justify-between">
+          <Link to="/register" className="block text-center my-5 text-gray-500">
+            ¿No tienes una cuenta? Registrate
+          </Link>
+          <Link
+            to="/forgot-password"
+            className="block text-center my-5 text-gray-500"
+          >
+            Olvidé mi contraseña
+          </Link>
+        </nav>
+      </div>
     </>
   );
 };

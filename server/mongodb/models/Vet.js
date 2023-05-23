@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
-import generateId from '../../helpers/generateId.js';
 import bcrypt from 'bcrypt';
+import { uid } from 'uid';
 
 const vetSchema = mongoose.Schema({
   name: {
@@ -30,7 +30,7 @@ const vetSchema = mongoose.Schema({
   },
   token: {
     type: String,
-    default: generateId(),
+    default: uid(25),
   },
   confirmed: {
     type: Boolean,

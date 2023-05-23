@@ -55,7 +55,9 @@ const getPatient = async (req, res) => {
     const { id } = req.params;
     const patient = await Patient.findById(id);
 
-    if (!patient) res.status(404).send({ msg: 'No encontrado' });
+    if (!patient) {
+      return res.status(404).send({ msg: 'No encontrado' });
+    }
 
     if (patient.veterinary._id.toString() !== req.veterinary._id.toString()) {
       return res.status(403).send({ msg: 'Acción no válida' });
@@ -87,7 +89,9 @@ const updatePatient = async (req, res) => {
     const { name, owner, email, dischargeDate, symptoms } = req.body;
     const patient = await Patient.findById(id);
 
-    if (!patient) res.status(404).send({ msg: 'No encontrado' });
+    if (!patient) {
+      return res.status(404).send({ msg: 'No encontrado' });
+    }
 
     if (patient.veterinary._id.toString() !== req.veterinary._id.toString()) {
       return res.status(403).send({ msg: 'Acción no válida' });
@@ -127,7 +131,9 @@ const deletePatient = async (req, res) => {
     const { id } = req.params;
     const patient = await Patient.findById(id);
 
-    if (!patient) res.status(404).send({ msg: 'No encontrado' });
+    if (!patient) {
+      return res.status(404).send({ msg: 'No encontrado' });
+    }
 
     if (patient.veterinary._id.toString() !== req.veterinary._id.toString()) {
       return res.status(403).send({ msg: 'Acción no válida' });
