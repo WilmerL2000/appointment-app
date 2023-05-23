@@ -1,18 +1,25 @@
 import { Form, Formik } from 'formik';
 import { Link, useNavigate } from 'react-router-dom';
-import { initialValuesRegister } from '../../schemas/initialValues';
-import { registerSchema } from '../../schemas/schemas';
+import { initialValuesRegister } from '../schemas/initialValues';
+import { registerSchema } from '../schemas/schemas';
 import Title from '../components/Title';
 import { SubmitButton } from '../components/buttons';
 import { InputPassword, InputText } from '../components/inputs';
-import { register } from '../../api/v1/functions';
+import { register } from '../api/v1/functions';
 
 export const Register = () => {
   const navigate = useNavigate();
 
+  /**
+   * This function handles registration by calling the register function and awaits its completion
+   * before moving on to the next line of code.
+   */
   const handleRegister = async (values, onSubmitProps) => {
     await register(values);
-    // navigate('/');
+    onSubmitProps.resetForm();
+    setTimeout(() => {
+      navigate('/');
+    }, 2500);
   };
 
   return (

@@ -1,7 +1,7 @@
 import { Form, Formik } from 'formik';
 import { Link, useNavigate } from 'react-router-dom';
-import { initialValuesLogin } from '../../schemas/initialValues';
-import { loginSchema } from '../../schemas/schemas';
+import { initialValuesLogin } from '../schemas/initialValues';
+import { loginSchema } from '../schemas/schemas';
 import Title from '../components/Title';
 import { SubmitButton } from '../components/buttons';
 import { InputPassword, InputText } from '../components/inputs';

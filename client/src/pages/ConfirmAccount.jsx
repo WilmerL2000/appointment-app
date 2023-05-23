@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { confirmAccount } from '../../api/v1/functions';
+import { confirmAccount } from '../api/v1/functions';
 import Alert from '../components/Alert';
 import Title from '../components/Title';
 

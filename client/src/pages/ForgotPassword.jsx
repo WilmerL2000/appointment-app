@@ -1,13 +1,19 @@
 import { Form, Formik } from 'formik';
 import { Link } from 'react-router-dom';
-import { forgotPasswordSchema } from '../../schemas/schemas';
+import { forgotPasswordSchema } from '../schemas/schemas';
 import Title from '../components/Title';
 import { SubmitButton } from '../components/buttons';
 import { InputText } from '../components/inputs';
+import { forgotPassword } from '../api/v1/functions';
 
 export const ForgotPassword = () => {
-  const handleForgotPassword = (values, onSubmitProps) => {
-    console.log(values);
+  /**
+   * This function handles the submission of a forgot password form by calling the forgotPassword
+   * function with the provided email and resetting the form.
+   */
+  const handleForgotPassword = async ({ email }, onSubmitProps) => {
+    await forgotPassword(email);
+    onSubmitProps.resetForm();
   };
 
   return (
