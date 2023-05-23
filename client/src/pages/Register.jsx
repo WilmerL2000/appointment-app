@@ -2,7 +2,7 @@ import { Form, Formik } from 'formik';
 import { Link, useNavigate } from 'react-router-dom';
 import { initialValuesRegister } from '../schemas/initialValues';
 import { registerSchema } from '../schemas/schemas';
-import Title from '../components/Title';
+import { Title } from '../components';
 import { SubmitButton } from '../components/buttons';
 import { InputPassword, InputText } from '../components/inputs';
 import { register } from '../api/v1/functions';

@@ -1,12 +1,11 @@
 import { Form, Formik } from 'formik';
 import { useNavigate, useParams } from 'react-router-dom';
 import { newPasswordSchema } from '../schemas/schemas';
-import Title from '../components/Title';
+import { Title, Alert } from '../components';
 import { SubmitButton } from '../components/buttons';
 import { InputPassword } from '../components/inputs';
 import { useEffect, useState } from 'react';
 import { checkToken, restorePassword } from '../api/v1/functions';
-import Alert from '../components/Alert';
 
 export const NewPassword = () => {
   const navigate = useNavigate();

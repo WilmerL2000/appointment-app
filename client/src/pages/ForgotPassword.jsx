@@ -1,7 +1,7 @@
 import { Form, Formik } from 'formik';
 import { Link } from 'react-router-dom';
 import { forgotPasswordSchema } from '../schemas/schemas';
-import Title from '../components/Title';
+import { Title } from '../components';
 import { SubmitButton } from '../components/buttons';
 import { InputText } from '../components/inputs';
 import { forgotPassword } from '../api/v1/functions';

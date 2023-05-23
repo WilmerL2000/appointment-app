@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { confirmAccount } from '../api/v1/functions';
-import Alert from '../components/Alert';
-import Title from '../components/Title';
+import { Title, Alert } from '../components';
 
 export const ConfirmAccount = () => {
   const { id } = useParams();

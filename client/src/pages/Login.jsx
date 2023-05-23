@@ -2,16 +2,19 @@ import { Form, Formik } from 'formik';
 import { Link, useNavigate } from 'react-router-dom';
 import { initialValuesLogin } from '../schemas/initialValues';
 import { loginSchema } from '../schemas/schemas';
-import Title from '../components/Title';
+import { Title } from '../components';
 import { SubmitButton } from '../components/buttons';
 import { InputPassword, InputText } from '../components/inputs';
 import { login } from '../api/v1/functions';
+import { useDispatch } from 'react-redux';
+import { setToken } from '../store/authSlice';
 
 export const Login = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleLogin = async (values, onSubmitProps) => {
-    await login(values);
+    await login(values).then((token) => dispatch(setToken({ token })));
     onSubmitProps.resetForm();
     navigate('/admin');
   };

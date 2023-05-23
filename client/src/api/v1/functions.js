@@ -11,7 +11,7 @@ import { toast } from 'sonner';
 const login = async (values) => {
   try {
     const { data } = await vetApi.post('/login', values);
-    localStorage.setItem('token', data.token);
+    return data.token;
   } catch (error) {
     toast.error(error.response.data.msg);
   }
@@ -100,8 +100,13 @@ const restorePassword = async ({ token, password }) => {
   }
 };
 
-const getUserProfile = async () => {
-  const token = localStorage.getItem('token');
+/**
+ * This function retrieves a user's profile data from an API using an authentication token.
+ * @returns The function `getUserProfile` is returning a Promise that resolves to the `data` object
+ * returned from the `vetApi` function call. If there is an error, the function logs the error message
+ * to the console and does not return anything.
+ */
+const getUserProfile = async ({ token }) => {
   if (!token) return;
 
   try {
