@@ -5,7 +5,7 @@ function InputPassword({ label, ...props }) {
 
   return (
     <>
-      <label className="uppercase block text-xl text-gray-600 font-bold">
+      <label className="uppercase block text-lg text-gray-600 font-bold">
         {label}
       </label>
       <input

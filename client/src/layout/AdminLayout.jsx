@@ -22,7 +22,7 @@ const AdminLayout = () => {
     <>
       <Header />
       {isAuth ? (
-        <main className="container mx-auto mt-10 px-10">
+        <main className="container mx-auto mt-10 md:px-10 px-2">
           <Outlet />
         </main>
       ) : (

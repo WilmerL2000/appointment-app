@@ -1,6 +1,6 @@
 import { useField } from 'formik';
 
-function InputText({ label, ...props }) {
+function TextArea({ label, placeHolder, ...props }) {
   const [field, meta] = useField(props);
 
   return (
@@ -8,8 +8,7 @@ function InputText({ label, ...props }) {
       <label className="uppercase block text-lg text-gray-600 font-bold">
         {label}
       </label>
-      <input
-        type="text"
+      <textarea
         className={`${
           meta.touched && meta.error
             ? 'border border-red-500 '
@@ -19,6 +18,7 @@ function InputText({ label, ...props }) {
          `}
         {...field}
         {...props}
+        placeholder={placeHolder}
       />
       {meta.touched && meta.error ? (
         <div className="text-red-500 text-xs italic">{meta.error}</div>
@@ -27,4 +27,4 @@ function InputText({ label, ...props }) {
   );
 }
 
-export default InputText;
+export default TextArea;

@@ -10,4 +10,12 @@ const initialValuesRegister = {
   passwordConfirmation: '',
 };
 
-export { initialValuesLogin, initialValuesRegister };
+const initialValuesPatient = {
+  name: '',
+  owner: '',
+  email: '',
+  dischargeDate: '',
+  symptoms: '',
+};
+
+export { initialValuesLogin, initialValuesRegister, initialValuesPatient };

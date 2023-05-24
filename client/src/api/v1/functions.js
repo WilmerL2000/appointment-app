@@ -1,4 +1,4 @@
-import { vetApi } from './api';
+import { patientApi, vetApi } from './api';
 import { toast } from 'sonner';
 
 /**
@@ -122,6 +122,33 @@ const getUserProfile = async ({ token }) => {
   }
 };
 
+/**
+ * The function saves a patient's data to an API using an authorization token.
+ * @param patient - The `patient` parameter is an object that contains information about a patient,
+ * such as their name, age, gender, and any medical conditions they may have. This object is passed as
+ * the second argument to the `patientApi.post` method, which sends a POST request to a server to save
+ * the
+ * @returns an object that contains all the properties of the patient object passed as an argument,
+ * except for the properties `createdAt`, `updatedAt`, and `__v`. These properties are being
+ * destructured from the response data object received from the `patientApi.post` request. If there is
+ * an error, the function logs the error message.
+ */
+const savePatient = async ({ token }, patient) => {
+  try {
+    const { data } = await patientApi.post('', patient, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    if (data) toast.success('Paciente creado correctamente');
+    const { createdAt, updatedAt, __v, ...restPatient } = data;
+    return restPatient;
+  } catch (error) {
+    console.log(error.response.data.msg);
+  }
+};
+
 export {
   login,
   register,
@@ -130,4 +157,5 @@ export {
   checkToken,
   restorePassword,
   getUserProfile,
+  savePatient,
 };

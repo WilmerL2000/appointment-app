@@ -1,6 +1,6 @@
 import { useField } from 'formik';
 
-function InputText({ label, ...props }) {
+function InputDate({ label, ...props }) {
   const [field, meta] = useField(props);
 
   return (
@@ -9,7 +9,7 @@ function InputText({ label, ...props }) {
         {label}
       </label>
       <input
-        type="text"
+        type="date"
         className={`${
           meta.touched && meta.error
             ? 'border border-red-500 '
@@ -27,4 +27,4 @@ function InputText({ label, ...props }) {
   );
 }
 
-export default InputText;
+export default InputDate;

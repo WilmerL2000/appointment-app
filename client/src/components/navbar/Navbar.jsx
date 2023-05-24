@@ -6,18 +6,18 @@ function Navbar() {
   const [open, setOpen] = useState(false);
   const routes = [
     { href: '/admin', text: 'Pacientes' },
-    { href: '/profile', text: 'Perfil' },
+    { href: '/admin/profile', text: 'Perfil' },
   ];
 
   return (
     <nav className="bg-indigo-600 border-gray-200 ">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <Link to="/" className="flex items-center">
-          <p className="self-center text-2xl font-semibold text-indigo-200 md:block hidden">
+          <p className="self-center text-2xl font-semibold text-indigo-200 lg:block hidden">
             Administrador de Pacientes de{' '}
             <span className="text-white font-black">Veterinaria</span>
           </p>
-          <p className="self-center text-2xl md:hidden font-semibold text-indigo-200 ">
+          <p className="self-center text-2xl lg:hidden font-semibold text-indigo-200 ">
             AP<span className="text-white font-black">V</span>
           </p>
         </Link>

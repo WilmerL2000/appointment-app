@@ -4,3 +4,6 @@ export * from './ConfirmAccount';
 export * from './ForgotPassword';
 export * from './NewPassword';
 export * from './ManagePatients';
+export * from './NewPatient';
+export * from './EditPatient';
+export * from './Profile';

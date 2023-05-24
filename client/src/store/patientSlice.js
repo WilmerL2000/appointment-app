@@ -1,8 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  patients: null,
-  activePatient: null,
+  patients: [],
 };
 
 export const patientSlice = createSlice({
@@ -10,12 +9,12 @@ export const patientSlice = createSlice({
   initialState,
   reducers: {
     setPatients: (state, action) => {
-      state.patients = action.payload.patients;
+      state.patients = action.payload;
     },
-    setActivePatient: (state, action) => {
-      state.activePatient = action.payload.activePatient;
+    addNewPatient: (state, action) => {
+      state.patients.push(action.payload);
     },
   },
 });
 
-export const { setPatients } = patientSlice.actions;
+export const { setPatients, addNewPatient } = patientSlice.actions;

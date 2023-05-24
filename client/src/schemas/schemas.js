@@ -44,4 +44,21 @@ const newPasswordSchema = yup.object().shape({
     .oneOf([yup.ref('password')], 'Las contraseñas no coinciden.'),
 });
 
-export { loginSchema, registerSchema, forgotPasswordSchema, newPasswordSchema };
+const patientSchema = yup.object().shape({
+  name: yup.string().required('El campo nombre es obligatorio.'),
+  owner: yup.string().required('El campo propietario es obligatorio.'),
+  email: yup
+    .string()
+    .email('Email inválido.')
+    .required('El campo email es obligatorio.'),
+  dischargeDate: yup.date().required('El campo fecha de alta es obligatorio.'),
+  symptoms: yup.string().required('El campo sintomas es obligatorio.'),
+});
+
+export {
+  loginSchema,
+  registerSchema,
+  forgotPasswordSchema,
+  newPasswordSchema,
+  patientSchema,
+};

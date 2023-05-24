@@ -15,7 +15,7 @@ const addPatient = async (req, res) => {
     patient.veterinary = req.veterinary._id;
     await patient.save();
 
-    res.status(201).send({ patient });
+    res.status(201).json(patient);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -33,7 +33,7 @@ const addPatient = async (req, res) => {
  */
 const getPatients = async (req, res) => {
   const patients = await Patient.find({ veterinary: req.veterinary });
-  res.status(200).send(patients);
+  res.status(200).json(patients);
 };
 
 /**
@@ -56,14 +56,14 @@ const getPatient = async (req, res) => {
     const patient = await Patient.findById(id);
 
     if (!patient) {
-      return res.status(404).send({ msg: 'No encontrado' });
+      return res.status(404).json({ msg: 'No encontrado' });
     }
 
     if (patient.veterinary._id.toString() !== req.veterinary._id.toString()) {
-      return res.status(403).send({ msg: 'Acción no válida' });
+      return res.status(403).json({ msg: 'Acción no válida' });
     }
 
-    res.status(200).send(patient);
+    res.status(200).json(patient);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -90,11 +90,11 @@ const updatePatient = async (req, res) => {
     const patient = await Patient.findById(id);
 
     if (!patient) {
-      return res.status(404).send({ msg: 'No encontrado' });
+      return res.status(404).json({ msg: 'No encontrado' });
     }
 
     if (patient.veterinary._id.toString() !== req.veterinary._id.toString()) {
-      return res.status(403).send({ msg: 'Acción no válida' });
+      return res.status(403).json({ msg: 'Acción no válida' });
     }
 
     patient.name = name || patient.name;
@@ -105,7 +105,7 @@ const updatePatient = async (req, res) => {
 
     const updatedPatient = await patient.save();
 
-    res.status(200).send(updatedPatient);
+    res.status(200).json(updatedPatient);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -132,15 +132,15 @@ const deletePatient = async (req, res) => {
     const patient = await Patient.findById(id);
 
     if (!patient) {
-      return res.status(404).send({ msg: 'No encontrado' });
+      return res.status(404).json({ msg: 'No encontrado' });
     }
 
     if (patient.veterinary._id.toString() !== req.veterinary._id.toString()) {
-      return res.status(403).send({ msg: 'Acción no válida' });
+      return res.status(403).json({ msg: 'Acción no válida' });
     }
 
     await patient.deleteOne();
-    res.status(200).send({ msg: 'Paciente eliminado' });
+    res.status(200).json({ msg: 'Paciente eliminado' });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
