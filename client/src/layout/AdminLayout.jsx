@@ -4,25 +4,21 @@ import { useEffect } from 'react';
 import { getUserProfile } from '../api/v1/functions';
 import { setUser } from '../store/authSlice';
 import { Footer, Header } from '../components';
+import { startLoadingInfo } from '../store/thunks';
 
 const AdminLayout = () => {
   const isAuth = Boolean(useSelector((state) => state.auth.token));
-  const { token } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    return async () => {
-      await getUserProfile({ token }).then((user) =>
-        dispatch(setUser({ user }))
-      );
-    };
-  }, [isAuth]);
+    dispatch(startLoadingInfo());
+  }, []);
 
   return (
     <>
       <Header />
       {isAuth ? (
-        <main className="container mx-auto mt-10 md:px-10 px-2">
+        <main className="container mx-auto mt-10 px-4 lg:px-10">
           <Outlet />
         </main>
       ) : (

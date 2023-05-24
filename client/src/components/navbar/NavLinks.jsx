@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { setLogout } from '../../store/authSlice';
+import { startLogout } from '../../store/thunks';
 
 function NavLinks({ routes = [], setOpen }) {
   const dispatch = useDispatch();
@@ -20,7 +20,7 @@ function NavLinks({ routes = [], setOpen }) {
       <li>
         <button
           className="block text-white rounded hover:bg-indigo-700 uppercase p-2"
-          onClick={() => dispatch(setLogout())}
+          onClick={() => dispatch(startLogout())}
         >
           Cerrar sesión
         </button>

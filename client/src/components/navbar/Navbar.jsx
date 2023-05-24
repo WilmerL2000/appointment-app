@@ -2,12 +2,13 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import NavLinks from './NavLinks';
 
+const routes = [
+  { href: '/admin', text: 'Pacientes' },
+  { href: '/admin/profile', text: 'Perfil' },
+];
+
 function Navbar() {
   const [open, setOpen] = useState(false);
-  const routes = [
-    { href: '/admin', text: 'Pacientes' },
-    { href: '/admin/profile', text: 'Perfil' },
-  ];
 
   return (
     <nav className="bg-indigo-600 border-gray-200 ">

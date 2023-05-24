@@ -149,6 +149,23 @@ const savePatient = async ({ token }, patient) => {
   }
 };
 
+/**
+ * This function retrieves a list of patients for a user with a given token.
+ * @returns The function `getUserPatients` is returning the `data` property from the response of a
+ * request made to the `patientApi` endpoint. The data returned is likely an array of patient objects
+ * or a single patient object, depending on the implementation of the `patientApi` endpoint.
+ */
+const getUserPatients = async ({ token }) => {
+  const { data } = await patientApi('', {
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return data;
+};
+
 export {
   login,
   register,
@@ -158,4 +175,5 @@ export {
   restorePassword,
   getUserProfile,
   savePatient,
+  getUserPatients,
 };
