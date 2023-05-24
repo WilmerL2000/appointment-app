@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { getUserProfile } from '../api/v1/functions';
 import { setUser } from '../store/authSlice';
+import { Footer, Header } from '../components';
 
 const AdminLayout = () => {
   const isAuth = Boolean(useSelector((state) => state.auth.token));
@@ -19,9 +20,15 @@ const AdminLayout = () => {
 
   return (
     <>
-      <main className="container mx-auto md:grid md:grid-cols-2 mt-12 gap-10 p-5 items-center">
-        {isAuth ? <Outlet /> : <Navigate to="/" />}
-      </main>
+      <Header />
+      {isAuth ? (
+        <main className="container mx-auto mt-10 px-10">
+          <Outlet />
+        </main>
+      ) : (
+        <Navigate to="/" />
+      )}
+      <Footer />
     </>
   );
 };
