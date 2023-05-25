@@ -20,14 +20,14 @@ export const patientSlice = createSlice({
     addNewPatient: (state, action) => {
       state.patients.push(action.payload);
     },
-    setPatient: (state, action) => {
+    updatePatient: (state, action) => {
       const updatedPatients = state.patients.map((patient) => {
         if (patient._id === action.payload.patient._id)
           return action.payload.patient;
         return patient;
       });
       state.patients = updatedPatients;
-      state.activePatient = null;
+      state.activePatient = action.payload.patient;
     },
     setActivePatient: (state, action) => {
       state.activePatient = action.payload;
@@ -48,7 +48,7 @@ export const {
   setLoading,
   setPatients,
   addNewPatient,
-  setPatient,
+  updatePatient,
   deletePatientById,
   setActivePatient,
   clearPatientsLogout,

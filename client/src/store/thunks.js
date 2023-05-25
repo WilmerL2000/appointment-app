@@ -1,6 +1,33 @@
-import { getUserPatients, getUserProfile } from '../api/v1/functions';
-import { setLogout, setUser } from './authSlice';
-import { clearPatientsLogout, setPatients } from './patientSlice';
+import {
+  getUserPatients,
+  getUserProfile,
+  login,
+  savePatient,
+  updateSelectedPatient,
+} from '../api/v1/functions';
+import { setLogout, setToken, setUser } from './authSlice';
+import {
+  clearPatientsLogout,
+  setPatients,
+  addNewPatient,
+  updatePatient,
+} from './patientSlice';
+
+/**
+ * The function "startLogin" logs in a user and sets their token in the Redux store.
+ * @param values - The `values` parameter is an object that contains the user's login credentials, such
+ * as their email and password. It is passed as an argument to the `startLogin` function.
+ * @returns The function `startLogin` is returning an asynchronous function that takes a `dispatch`
+ * parameter. This function calls the `login` function with the `values` parameter and awaits its
+ * response. Once the response is received, it dispatches an action with the `setToken` function,
+ * passing the `token` as an argument.
+ */
+const startLogin = (values) => {
+  return async (dispatch) => {
+    const token = await login(values);
+    dispatch(setToken({ token }));
+  };
+};
 
 /**
  * This function logs out a user by dispatching two actions.
@@ -31,4 +58,53 @@ const startLoadingInfo = () => {
   };
 };
 
-export { startLogout, startLoadingInfo };
+/**
+ * This function saves a new patient and adds them to the state.
+ * @param newPatient - The newPatient parameter is an object that contains information about a patient
+ * that needs to be saved. This information could include the patient's name, age, gender, medical
+ * history, and any other relevant details.
+ * @returns A function that takes in `newPatient` as a parameter and returns an asynchronous function
+ * that takes in `dispatch` and `getState` as parameters. The inner function dispatches an action to
+ * add the new patient to the store after saving the patient data using the `savePatient` function.
+ */
+const startSavegPatient = (newPatient) => {
+  return async (dispatch, getState) => {
+    const { token } = getState().auth;
+
+    const patient = await savePatient({ token }, newPatient);
+    dispatch(addNewPatient(patient));
+  };
+};
+
+/**
+ * This is an asynchronous function that updates a selected patient and dispatches an action to update
+ * the patient.
+ * @param patient - The patient object that needs to be updated.
+ * @returns The function `startUpdatePatient` is returning an asynchronous function that takes two
+ * arguments: `dispatch` and `getState`. This function dispatches an action `updatePatient` with the
+ * updated patient data after calling the `updateSelectedPatient` function with the `token` from the
+ * `auth` state and the `patient` object passed as an argument to `startUpdatePatient`.
+ */
+const startUpdatePatient = (patient) => {
+  return async (dispatch, getState) => {
+    const { token } = getState().auth;
+
+    await updateSelectedPatient({ token }, patient);
+    dispatch(updatePatient({ patient }));
+  };
+};
+
+const startDeletePatient = () => {
+  return async (dispatch, getState) => {
+    const { token } = getState().auth;
+  };
+};
+
+export {
+  startLogin,
+  startLogout,
+  startLoadingInfo,
+  startSavegPatient,
+  startUpdatePatient,
+  startDeletePatient,
+};

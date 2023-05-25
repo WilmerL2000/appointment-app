@@ -5,16 +5,15 @@ import { loginSchema } from '../schemas/schemas';
 import { Title } from '../components';
 import { SubmitButton } from '../components/buttons';
 import { InputPassword, InputText } from '../components/inputs';
-import { login } from '../api/v1/functions';
 import { useDispatch } from 'react-redux';
-import { setToken } from '../store/authSlice';
+import { startLogin } from '../store/thunks';
 
 export const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const handleLogin = async (values, onSubmitProps) => {
-    await login(values).then((token) => dispatch(setToken({ token })));
+  const handleLogin = (values, onSubmitProps) => {
+    dispatch(startLogin(values));
     onSubmitProps.resetForm();
     navigate('/admin');
   };

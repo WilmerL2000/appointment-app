@@ -166,6 +166,46 @@ const getUserPatients = async ({ token }) => {
   return data;
 };
 
+/**
+ * This function updates a selected patient's information in the database using a PATCH request and
+ * returns the updated patient object.
+ * @param patient - The `patient` parameter is an object that represents the patient to be updated. It
+ * contains properties such as `_id`, `name`, `age`, `gender`, `diagnosis`, etc. These properties will
+ * be used to update the patient's information in the database.
+ * @returns an object containing the patient data with the createdAt, updatedAt, and __v properties
+ * removed. If the update is successful, it also displays a success message using the toast library. If
+ * there is an error, it logs the error message to the console.
+ */
+const updateSelectedPatient = async ({ token }, patient) => {
+  try {
+    const { data } = await patientApi.patch(`/${patient._id}`, patient, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    if (data) toast.success('Paciente modificado correctamente');
+    const { createdAt, updatedAt, __v, ...restPatient } = data;
+    return restPatient;
+  } catch (error) {
+    console.log(error.response.data.msg);
+  }
+};
+
+const deletePatient = async (token, id) => {
+  try {
+    const { data } = await patientApi.delete(`/${id}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    if (data) toast.success('Paciente modificado correctamente');
+  } catch (error) {
+    console.log(error.response.data.msg);
+  }
+};
+
 export {
   login,
   register,
@@ -176,4 +216,6 @@ export {
   getUserProfile,
   savePatient,
   getUserPatients,
+  updateSelectedPatient,
+  deletePatient,
 };
