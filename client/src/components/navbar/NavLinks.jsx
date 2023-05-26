@@ -19,7 +19,7 @@ function NavLinks({ routes = [], setOpen }) {
       ))}
       <li>
         <button
-          className="block text-white rounded hover:bg-indigo-700 uppercase p-2"
+          className="flex text-white rounded hover:bg-indigo-700 uppercase p-2 w-full"
           onClick={() => dispatch(startLogout())}
         >
           Cerrar sesión

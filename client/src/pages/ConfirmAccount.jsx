@@ -11,7 +11,7 @@ export const ConfirmAccount = () => {
   const [confirmed, setConfirmed] = useState(false);
 
   useEffect(() => {
-    return async () =>
+    return async () => {
       await confirmAccount(id).then(({ error, msg }) => {
         if (error) {
           setMessage(msg);
@@ -20,8 +20,9 @@ export const ConfirmAccount = () => {
           setMessage(msg);
           setConfirmed(true);
         }
-        setLoading(false);
       });
+      setLoading(false);
+    };
   }, []);
 
   return (
