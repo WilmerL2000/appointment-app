@@ -13,6 +13,8 @@ const app = express();
 app.use(express.json({ limit: '50mb' }));
 
 app.use(cors());
+
+app.use(helmet());
 app.use(helmet.crossOriginResourcePolicy({ policy: 'cross-origin' }));
 
 app.use('/api/veterinary', vetRoutes);
