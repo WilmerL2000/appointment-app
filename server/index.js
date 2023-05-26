@@ -9,9 +9,21 @@ dotenv.config();
 
 const app = express();
 
-app.use(cors());
-
 app.use(express.json({ limit: '50mb' }));
+
+const permitedDomains = ['http://localhost:5173', process.env.FRONTEND_URL];
+
+const corsOptions = {
+  origin: function (origin, cb) {
+    if (permitedDomains.indexOf(origin) !== -1) {
+      cb(null, true);
+    } else {
+      cb(new Error('No permitido por CORS'));
+    }
+  },
+};
+
+app.use(cors(corsOptions));
 
 app.use('/api/veterinary', vetRoutes);
 app.use('/api/patients', patientRoutes);
