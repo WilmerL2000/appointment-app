@@ -5,23 +5,20 @@ import connectDB from './mongodb/connect.js';
 import vetRoutes from './routes/vetRoutes.js';
 import patientRoutes from './routes/patientRoutes.js';
 import helmet from 'helmet';
-
+import morgan from 'morgan';
 dotenv.config();
 
 const app = express();
 
 app.use(express.json({ limit: '50mb' }));
 
-const corsOptions = {
-  origin: '*',
-  credentials: true,
-  optionSuccessStatus: 200,
-};
-
-app.use(cors(corsOptions));
-
 app.use(helmet());
+
 app.use(helmet.crossOriginResourcePolicy({ policy: 'cross-origin' }));
+
+app.use(morgan('common'));
+
+app.use(cors());
 
 app.use('/api/veterinary', vetRoutes);
 app.use('/api/patients', patientRoutes);
