@@ -6,7 +6,7 @@ import { initialValuesPatient } from '../schemas/initialValues';
 import { TextArea } from './textarea';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { startSavegPatient, startUpdatePatient } from '../store/thunks';
+import { startSavePatient, startUpdatePatient } from '../store/thunks';
 
 function FormPatient() {
   const dispatch = useDispatch();
@@ -50,7 +50,7 @@ function FormPatient() {
    */
   const handlePatient = (values, onSubmitProps) => {
     if (pathname.includes('/admin/new-patient')) {
-      dispatch(startSavegPatient(values));
+      dispatch(startSavePatient(values));
     } else {
       dispatch(startUpdatePatient(values));
     }

@@ -1,4 +1,6 @@
 import * as yup from 'yup';
+const phoneRegExp =
+  /^[\\+]?[(]?[0-9]{3}[)]?[-\s\\.]?[0-9]{3}[-\s\\.]?[0-9]{4,6}$/;
 
 const loginSchema = yup.object().shape({
   email: yup
@@ -55,10 +57,21 @@ const patientSchema = yup.object().shape({
   symptoms: yup.string().required('El campo sintomas es obligatorio.'),
 });
 
+const profileSchema = yup.object().shape({
+  name: yup.string().required('El campo nombre es obligatorio.'),
+  email: yup
+    .string()
+    .email('Email inválido.')
+    .required('El campo email es obligatorio.'),
+  phoneNumber: yup.string().matches(phoneRegExp, 'Número de teléfono inválido'),
+  webPage: yup.string(),
+});
+
 export {
   loginSchema,
   registerSchema,
   forgotPasswordSchema,
   newPasswordSchema,
   patientSchema,
+  profileSchema,
 };

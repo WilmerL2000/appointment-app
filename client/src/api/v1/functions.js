@@ -2,16 +2,20 @@ import { patientApi, vetApi } from './api';
 import { toast } from 'sonner';
 
 /**
- * This function logs in a user by sending a POST request to a server and storing the received token in
- * local storage.
+ * This is an asynchronous function that sends a login request to a server and returns a token and user
+ * data if successful, or displays an error message if unsuccessful.
  * @param values - The `values` parameter is an object that contains the user's login credentials, such
  * as their email and password. This object is passed as the second argument to the `post` method of
- * the `vetApi` object, which sends a POST request to the `/login` endpoint of the API with
+ * the `vetApi` object, which sends a POST request to the '/login' endpoint of the API with
+ * @returns The `login` function is returning an object with two properties: `token` and `user`. The
+ * `token` property contains the token received from the server after successful login, and the `user`
+ * property contains the user data received from the server. If there is an error during the login
+ * process, the function will display an error message using the `toast` library.
  */
 const login = async (values) => {
   try {
     const { data } = await vetApi.post('/login', values);
-    return data.token;
+    return { token: data.token, user: data.user };
   } catch (error) {
     toast.error(error.response.data.msg);
   }
@@ -107,8 +111,6 @@ const restorePassword = async ({ token, password }) => {
  * to the console and does not return anything.
  */
 const getUserProfile = async ({ token }) => {
-  if (!token) return;
-
   try {
     const { data } = await vetApi('/profile', {
       headers: {
@@ -119,6 +121,29 @@ const getUserProfile = async ({ token }) => {
     return data;
   } catch (error) {
     console.log(error.response.data.msg);
+  }
+};
+
+/**
+ * This is an asynchronous function that updates a user's profile information using a PATCH request to
+ * a vet API and returns the updated user data.
+ * @returns the `data` object received from the API response, after removing the `confirmed`, `token`,
+ * `__v` properties. If the API call is successful, it also displays a success toast message. If there
+ * is an error, it displays an error toast message.
+ */
+const updateProfile = async ({ token: userToken, user: userData }) => {
+  try {
+    const { data } = await vetApi.patch(`/profile/${userData._id}`, userData, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userToken}`,
+      },
+    });
+    if (data) toast.success('Información guardada correctamente');
+    const { confirmed, token, __v, ...user } = data;
+    return data;
+  } catch (error) {
+    toast.error(error.response.data.msg);
   }
 };
 
@@ -192,6 +217,15 @@ const updateSelectedPatient = async ({ token }, patient) => {
   }
 };
 
+/**
+ * This function deletes a patient using an API call with authorization token and displays a success
+ * message using toast.
+ * @param token - The token is a string that represents the authentication token of the user making the
+ * request. It is used to verify the identity of the user and ensure that they have the necessary
+ * permissions to perform the requested action.
+ * @param id - The `id` parameter is the unique identifier of the patient that needs to be deleted from
+ * the database. It is used in the API endpoint to specify which patient to delete.
+ */
 const deletePatient = async (token, id) => {
   try {
     const { data } = await patientApi.delete(`/${id}`, {
@@ -200,7 +234,7 @@ const deletePatient = async (token, id) => {
         Authorization: `Bearer ${token}`,
       },
     });
-    if (data) toast.success('Paciente modificado correctamente');
+    if (data) toast.success('Paciente eliminado correctamente');
   } catch (error) {
     console.log(error.response.data.msg);
   }
@@ -214,6 +248,7 @@ export {
   checkToken,
   restorePassword,
   getUserProfile,
+  updateProfile,
   savePatient,
   getUserPatients,
   updateSelectedPatient,

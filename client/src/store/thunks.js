@@ -4,13 +4,16 @@ import {
   login,
   savePatient,
   updateSelectedPatient,
+  deletePatient,
+  updateProfile,
 } from '../api/v1/functions';
-import { setLogout, setToken, setUser } from './authSlice';
+import { setLogout, setLogin, setUser } from './authSlice';
 import {
   clearPatientsLogout,
   setPatients,
   addNewPatient,
   updatePatient,
+  deletePatientById,
 } from './patientSlice';
 
 /**
@@ -19,13 +22,13 @@ import {
  * as their email and password. It is passed as an argument to the `startLogin` function.
  * @returns The function `startLogin` is returning an asynchronous function that takes a `dispatch`
  * parameter. This function calls the `login` function with the `values` parameter and awaits its
- * response. Once the response is received, it dispatches an action with the `setToken` function,
+ * response. Once the response is received, it dispatches an action with the `setLogin` function,
  * passing the `token` as an argument.
  */
 const startLogin = (values) => {
   return async (dispatch) => {
-    const token = await login(values);
-    dispatch(setToken({ token }));
+    const { token, user } = await login(values);
+    dispatch(setLogin({ token, user }));
   };
 };
 
@@ -50,8 +53,6 @@ const startLogout = () => {
 const startLoadingInfo = () => {
   return async (dispatch, getState) => {
     const { token } = getState().auth;
-    const user = await getUserProfile({ token });
-    dispatch(setUser({ user }));
 
     const patients = await getUserPatients({ token });
     dispatch(setPatients(patients));
@@ -67,7 +68,7 @@ const startLoadingInfo = () => {
  * that takes in `dispatch` and `getState` as parameters. The inner function dispatches an action to
  * add the new patient to the store after saving the patient data using the `savePatient` function.
  */
-const startSavegPatient = (newPatient) => {
+const startSavePatient = (newPatient) => {
   return async (dispatch, getState) => {
     const { token } = getState().auth;
 
@@ -94,9 +95,29 @@ const startUpdatePatient = (patient) => {
   };
 };
 
-const startDeletePatient = () => {
+/**
+ * This is an asynchronous function that deletes a patient by ID and dispatches an action to update the
+ * state.
+ * @param id - The `id` parameter is the unique identifier of the patient that needs to be deleted. It
+ * is passed as an argument to the `startDeletePatient` function.
+ * @returns A function that takes in `id` as a parameter and returns an asynchronous function that
+ * takes in `dispatch` and `getState` as parameters. The inner function calls the `deletePatient`
+ * function with the `token` from the `auth` state and the `id` parameter, and then dispatches the
+ * `deletePatientById` action with the `id` parameter.
+ */
+const startDeletePatient = (id) => {
   return async (dispatch, getState) => {
     const { token } = getState().auth;
+    await deletePatient(token, id);
+    dispatch(deletePatientById(id));
+  };
+};
+
+const startChangeProfileInfo = (user) => {
+  return async (dispatch, getState) => {
+    const { token } = getState().auth;
+    const data = await updateProfile({ user, token });
+    dispatch(setUser({ user: data }));
   };
 };
 
@@ -104,7 +125,8 @@ export {
   startLogin,
   startLogout,
   startLoadingInfo,
-  startSavegPatient,
+  startSavePatient,
   startUpdatePatient,
   startDeletePatient,
+  startChangeProfileInfo,
 };

@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux';
-import { setActivePatient } from '../../store/patientSlice';
+import { setActivePatient, setPatientId } from '../../store/patientSlice';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import Modal from '../Modal';
@@ -8,7 +8,6 @@ function PatienItem({ patients = [] }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
-  const [confirm, setConfirm] = useState(false);
 
   /**
    * The function `dateFormatter` formats a given date into a long date string in the Spanish language.
@@ -21,12 +20,6 @@ function PatienItem({ patients = [] }) {
     return new Intl.DateTimeFormat('es-CR', { dateStyle: 'long' }).format(
       newDate
     );
-  };
-
-  const deletePatient = (id) => {
-    if (confirm) {
-      console.log(id);
-    }
   };
 
   return (
@@ -78,7 +71,7 @@ function PatienItem({ patients = [] }) {
               className="font-medium bg-red-600 p-2 hover:cursor-pointer hover:bg-red-800 text-white uppercase rounded-md"
               onClick={() => {
                 setOpen((prev) => !prev);
-                // dispatch();
+                dispatch(setPatientId(patient._id));
               }}
             >
               Eliminar
@@ -86,7 +79,7 @@ function PatienItem({ patients = [] }) {
           </div>
         </div>
       ))}
-      {open && <Modal setOpen={setOpen} setConfirm={setConfirm} />}
+      {open && <Modal setOpen={setOpen} />}
     </>
   );
 }

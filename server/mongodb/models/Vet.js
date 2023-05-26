@@ -21,12 +21,12 @@ const vetSchema = mongoose.Schema({
   },
   phoneNumber: {
     type: String,
-    default: null,
+    default: '',
     trim: true,
   },
   webPage: {
     type: String,
-    default: null,
+    default: '',
   },
   token: {
     type: String,

@@ -9,7 +9,8 @@ import {
   ManagePatients,
   NewPatient,
   EditPatient,
-  Profile,
+  EditProfile,
+  ChangePassword,
 } from './pages';
 import { Toaster } from 'sonner';
 import AdminLayout from './layout/AdminLayout';
@@ -27,7 +28,8 @@ function App() {
         </Route>
         <Route path="/admin" element={<AdminLayout />}>
           <Route index element={<ManagePatients />} />
-          <Route path="profile" element={<Profile />} />
+          <Route path="profile" element={<EditProfile />} />
+          <Route path="change-password" element={<ChangePassword />} />
           <Route path="new-patient" element={<NewPatient />} />
           <Route path="edit-patient/:name" element={<EditPatient />} />
         </Route>

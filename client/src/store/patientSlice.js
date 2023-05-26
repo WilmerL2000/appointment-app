@@ -4,6 +4,7 @@ const initialState = {
   patients: [],
   activePatient: null,
   isLoading: false,
+  patientIdToDelete: null,
 };
 
 export const patientSlice = createSlice({
@@ -18,7 +19,7 @@ export const patientSlice = createSlice({
       state.isLoading = false;
     },
     addNewPatient: (state, action) => {
-      state.patients.push(action.payload);
+      state.patients.unshift(action.payload);
     },
     updatePatient: (state, action) => {
       const updatedPatients = state.patients.map((patient) => {
@@ -32,14 +33,19 @@ export const patientSlice = createSlice({
     setActivePatient: (state, action) => {
       state.activePatient = action.payload;
     },
+    setPatientId: (state, action) => {
+      state.patientIdToDelete = action.payload;
+    },
     deletePatientById: (state, action) => {
       state.patients = state.patients.filter(
         (patient) => patient._id !== action.payload
       );
+      state.patientIdToDelete = null;
     },
     clearPatientsLogout: (state) => {
       state.patients = [];
       state.activePatient = null;
+      state.patientIdToDelete = null;
     },
   },
 });
@@ -52,4 +58,5 @@ export const {
   deletePatientById,
   setActivePatient,
   clearPatientsLogout,
+  setPatientId,
 } = patientSlice.actions;

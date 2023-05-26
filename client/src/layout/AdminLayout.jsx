@@ -1,8 +1,6 @@
 import { Navigate, Outlet } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { getUserProfile } from '../api/v1/functions';
-import { setUser } from '../store/authSlice';
 import { Footer, Header } from '../components';
 import { startLoadingInfo } from '../store/thunks';
 
@@ -11,8 +9,8 @@ const AdminLayout = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(startLoadingInfo());
-  }, []);
+    if (isAuth) dispatch(startLoadingInfo());
+  }, [isAuth]);
 
   return (
     <>

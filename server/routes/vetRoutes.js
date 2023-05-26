@@ -7,6 +7,7 @@ import {
   forgotPassword,
   findOutToken,
   newPassword,
+  editProfile,
 } from '../controllers/vetController.js';
 import checkToken from '../middleware/authMiddleware.js';
 
@@ -25,5 +26,6 @@ via GET request, and then use that token to set a new password via POST request.
 router.route('/forgot-password/:token').get(findOutToken).post(newPassword);
 
 router.get('/profile', checkToken, profile);
+router.patch('/profile/:id', checkToken, editProfile);
 
 export default router;

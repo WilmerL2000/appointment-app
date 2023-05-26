@@ -1,4 +1,16 @@
-function Modal({ setOpen, setConfirm }) {
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { startDeletePatient } from '../store/thunks';
+
+function Modal({ setOpen }) {
+  const [confirm, setConfirm] = useState(false);
+  const { patientIdToDelete } = useSelector((state) => state.patient);
+  const dispatch = useDispatch();
+
+  const deletePatientById = () => {
+    dispatch(startDeletePatient(patientIdToDelete));
+  };
+
   return (
     <div
       className="relative z-10"
@@ -48,7 +60,10 @@ function Modal({ setOpen, setConfirm }) {
               <button
                 type="button"
                 className="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto"
-                onClick={() => setConfirm((prev) => !prev)}
+                onClick={() => {
+                  setOpen((prev) => !prev);
+                  deletePatientById();
+                }}
               >
                 Eliminar
               </button>

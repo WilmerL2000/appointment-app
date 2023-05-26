@@ -6,4 +6,5 @@ export * from './NewPassword';
 export * from './ManagePatients';
 export * from './NewPatient';
 export * from './EditPatient';
-export * from './Profile';
+export * from './EditProfile';
+export * from './ChangePassword';

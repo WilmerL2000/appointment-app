@@ -117,7 +117,8 @@ const authenticate = async (req, res) => {
     }
 
     if (await user.checkPassword(password)) {
-      res.json({ token: generateJWT(user._id) });
+      const token = generateJWT(user._id);
+      res.status(200).json({ token, user });
     } else {
       const error = new Error('Contraseña incorrecta');
       return res.status(403).json({ msg: error.message });
@@ -219,6 +220,39 @@ const newPassword = async (req, res) => {
   }
 };
 
+const editProfile = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { name, email, webPage, phoneNumber } = req.body;
+
+    const veterinary = await Vet.findById(id);
+
+    if (veterinary.email !== email) {
+      const emailExist = await Vet.findOne({ email });
+      if (emailExist) {
+        const error = new Error('Este correo ya existe');
+        return res.status(400).json({ msg: error.message });
+      }
+    }
+
+    if (!veterinary) {
+      const error = new Error('Hubo un error');
+      return res.status(400).json({ msg: error.message });
+    }
+
+    veterinary.name = name;
+    veterinary.email = email;
+    veterinary.webPage = webPage;
+    veterinary.phoneNumber = phoneNumber;
+
+    const updated = await veterinary.save();
+
+    res.status(200).json(updated);
+  } catch (error) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
 export {
   register,
   profile,
@@ -227,4 +261,5 @@ export {
   forgotPassword,
   findOutToken,
   newPassword,
+  editProfile,
 };
