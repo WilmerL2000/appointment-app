@@ -11,7 +11,7 @@ const app = express();
 
 app.use(express.json({ limit: '50mb' }));
 
-const permitedDomains = ['http://localhost:5173', process.env.FRONTEND_URL];
+const permitedDomains = [process.env.FRONTEND_URL];
 
 const corsOptions = {
   origin: function (origin, cb) {
