@@ -148,6 +148,24 @@ const updateProfile = async ({ token: userToken, user: userData }) => {
 };
 
 /**
+ * This function updates a user's password using an API endpoint and displays a success or error
+ * message using a toast notification.
+ */
+const savePassword = async ({ token, values }) => {
+  try {
+    const { data } = await vetApi.patch(`/update-password`, values, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    if (data) toast.success(data.msg);
+  } catch (error) {
+    toast.error(error.response.data.msg);
+  }
+};
+
+/**
  * The function saves a patient's data to an API using an authorization token.
  * @param patient - The `patient` parameter is an object that contains information about a patient,
  * such as their name, age, gender, and any medical conditions they may have. This object is passed as
@@ -246,6 +264,7 @@ export {
   confirmAccount,
   forgotPassword,
   checkToken,
+  savePassword,
   restorePassword,
   getUserProfile,
   updateProfile,

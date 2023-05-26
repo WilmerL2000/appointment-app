@@ -220,6 +220,16 @@ const newPassword = async (req, res) => {
   }
 };
 
+/**
+ * This function edits a veterinary profile and returns the updated profile.
+ * @param req - req stands for request and it is an object that contains information about the HTTP
+ * request that was made, such as the request headers, request parameters, request body, etc.
+ * @param res - The `res` parameter is the response object that will be sent back to the client with
+ * the updated data or an error message. It contains methods to set the HTTP status code, headers, and
+ * body of the response.
+ * @returns a JSON response with the updated veterinary object if the update was successful, or an
+ * error message if there was an error.
+ */
 const editProfile = async (req, res) => {
   try {
     const { id } = req.params;
@@ -253,6 +263,45 @@ const editProfile = async (req, res) => {
   }
 };
 
+/**
+ * This function updates the password of a veterinary user and returns a success message if the actual
+ * password provided is correct.
+ * @param req - req stands for request and it is an object that contains information about the HTTP
+ * request that was made, such as the request headers, request parameters, request body, etc.
+ * @param res - The "res" parameter in the function "updatePassword" is the response object that will
+ * be sent back to the client with the updated password or an error message. It is used to set the HTTP
+ * status code and send the response data.
+ * @returns The function is not returning anything explicitly, but it is sending a response to the
+ * client using the `res` object. The response will be a JSON object with a `msg` property, which will
+ * either be "Contraseña modificada correctamente" (if the password was successfully updated) or an
+ * error message (if there was an error or the actual password was incorrect).
+ */
+const updatePassword = async (req, res) => {
+  try {
+    const { actualPassword, newPassword } = req.body;
+    console.log(req.body);
+    const { _id } = req.veterinary;
+
+    const veterinary = await Vet.findById(_id);
+
+    if (!veterinary) {
+      const error = new Error('Hubo un error');
+      return res.status(400).json({ msg: error.message });
+    }
+
+    if (await veterinary.checkPassword(actualPassword)) {
+      veterinary.password = newPassword;
+      await veterinary.save();
+      res.status(200).json({ msg: 'Contraseña modificada correctamente' });
+    } else {
+      const error = new Error('La contraseña actual es incorrecta');
+      return res.status(400).json({ msg: error.message });
+    }
+  } catch (error) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
 export {
   register,
   profile,
@@ -262,4 +311,5 @@ export {
   findOutToken,
   newPassword,
   editProfile,
+  updatePassword,
 };

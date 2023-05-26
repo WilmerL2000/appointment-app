@@ -67,6 +67,21 @@ const profileSchema = yup.object().shape({
   webPage: yup.string(),
 });
 
+const changePasswordSchema = yup.object().shape({
+  actualPassword: yup
+    .string()
+    .required('El campo contraseña actual es obligatorio.'),
+  newPassword: yup
+    .string()
+    .min(8, 'El campo contraseña debe contener al menos 8 caracteres.')
+    .max(15, 'El campo contraseña no debe ser mayor que 15 caracteres.')
+    .required('El campo contraseña es obligatorio.'),
+  passwordConfirmation: yup
+    .string()
+    .required('Por favor, vueve a escribir tu contraseña.')
+    .oneOf([yup.ref('newPassword')], 'Las contraseñas no coinciden.'),
+});
+
 export {
   loginSchema,
   registerSchema,
@@ -74,4 +89,5 @@ export {
   newPasswordSchema,
   patientSchema,
   profileSchema,
+  changePasswordSchema,
 };

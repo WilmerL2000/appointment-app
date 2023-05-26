@@ -8,6 +8,7 @@ import {
   findOutToken,
   newPassword,
   editProfile,
+  updatePassword,
 } from '../controllers/vetController.js';
 import checkToken from '../middleware/authMiddleware.js';
 
@@ -27,5 +28,6 @@ router.route('/forgot-password/:token').get(findOutToken).post(newPassword);
 
 router.get('/profile', checkToken, profile);
 router.patch('/profile/:id', checkToken, editProfile);
+router.patch('/update-password', checkToken, updatePassword);
 
 export default router;

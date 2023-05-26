@@ -1,11 +1,11 @@
 import {
   getUserPatients,
-  getUserProfile,
   login,
   savePatient,
   updateSelectedPatient,
   deletePatient,
   updateProfile,
+  savePassword,
 } from '../api/v1/functions';
 import { setLogout, setLogin, setUser } from './authSlice';
 import {
@@ -113,11 +113,28 @@ const startDeletePatient = (id) => {
   };
 };
 
+/**
+ * This is an asynchronous function that updates the user's profile information and dispatches the
+ * updated user data to the store.
+ * @param user - The `user` parameter is an object that contains the updated profile information for
+ * the user. This object could include properties such as `name`, `email`, `bio`, `avatar`, etc.
+ * @returns A function that takes in a `user` object as an argument and returns an asynchronous
+ * function that takes in `dispatch` and `getState` as arguments. The inner function updates the user's
+ * profile information using the `updateProfile` function and the `token` from the `auth` state in the
+ * Redux store. Once the profile information is updated, it dispatches an action to update the user's
+ */
 const startChangeProfileInfo = (user) => {
   return async (dispatch, getState) => {
     const { token } = getState().auth;
     const data = await updateProfile({ user, token });
     dispatch(setUser({ user: data }));
+  };
+};
+
+const startChangePassword = (values) => {
+  return async (dispatch, getState) => {
+    const { token } = getState().auth;
+    await savePassword({ token, values });
   };
 };
 
@@ -129,4 +146,5 @@ export {
   startUpdatePatient,
   startDeletePatient,
   startChangeProfileInfo,
+  startChangePassword,
 };
