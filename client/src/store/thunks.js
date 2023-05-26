@@ -131,6 +131,18 @@ const startChangeProfileInfo = (user) => {
   };
 };
 
+/**
+ * This is an asynchronous function that saves a new password using a token and values passed as
+ * arguments.
+ * @param values - The `values` parameter is an object that contains the new password that the user
+ * wants to set. This object may have one or more properties, depending on the requirements of the
+ * `savePassword` function.
+ * @returns The function `startChangePassword` is returning an asynchronous function that takes two
+ * arguments: `dispatch` and `getState`. This function is using the `await` keyword to wait for the
+ * `savePassword` function to complete before continuing. The `savePassword` function is being passed
+ * an object with two properties: `token` and `values`. The `token` property is being retrieved from
+ * the `
+ */
 const startChangePassword = (values) => {
   return async (dispatch, getState) => {
     const { token } = getState().auth;

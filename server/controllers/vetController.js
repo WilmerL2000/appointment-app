@@ -279,7 +279,6 @@ const editProfile = async (req, res) => {
 const updatePassword = async (req, res) => {
   try {
     const { actualPassword, newPassword } = req.body;
-    console.log(req.body);
     const { _id } = req.veterinary;
 
     const veterinary = await Vet.findById(_id);

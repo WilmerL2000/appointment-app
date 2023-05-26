@@ -11,6 +11,8 @@ import {
   EditPatient,
   EditProfile,
   ChangePassword,
+  NotFoundLogin,
+  NotFoundAdmin,
 } from './pages';
 import { Toaster } from 'sonner';
 import AdminLayout from './layout/AdminLayout';
@@ -21,6 +23,7 @@ function App() {
       <Routes>
         <Route path="/" element={<AuthLayout />}>
           <Route index element={<Login />} />
+          <Route path="*" element={<NotFoundLogin />} />
           <Route path="register" element={<Register />} />
           <Route path="confirm-account/:id" element={<ConfirmAccount />} />
           <Route path="forgot-password" element={<ForgotPassword />} />
@@ -28,6 +31,7 @@ function App() {
         </Route>
         <Route path="/admin" element={<AdminLayout />}>
           <Route index element={<ManagePatients />} />
+          <Route path="*" element={<NotFoundAdmin />} />
           <Route path="profile" element={<EditProfile />} />
           <Route path="change-password" element={<ChangePassword />} />
           <Route path="new-patient" element={<NewPatient />} />

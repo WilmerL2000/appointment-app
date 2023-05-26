@@ -5,7 +5,7 @@ import { patientSchema } from '../schemas/schemas';
 import { initialValuesPatient } from '../schemas/initialValues';
 import { TextArea } from './textarea';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { startSavePatient, startUpdatePatient } from '../store/thunks';
 
 function FormPatient() {
@@ -57,6 +57,10 @@ function FormPatient() {
     onSubmitProps.resetForm();
     navigate('/admin');
   };
+
+  if (!activePatient && pathname.includes('/admin/edit-patient/')) {
+    return <Navigate to="/admin" />;
+  }
 
   return (
     <>

@@ -3,7 +3,6 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   patients: [],
   activePatient: null,
-  isLoading: false,
   patientIdToDelete: null,
 };
 
@@ -11,15 +10,13 @@ export const patientSlice = createSlice({
   name: 'patient',
   initialState,
   reducers: {
-    setLoading: (state) => {
-      state.isLoading = true;
-    },
     setPatients: (state, action) => {
       state.patients = action.payload;
       state.isLoading = false;
     },
     addNewPatient: (state, action) => {
       state.patients.unshift(action.payload);
+      state.isLoading = false;
     },
     updatePatient: (state, action) => {
       const updatedPatients = state.patients.map((patient) => {
@@ -28,7 +25,8 @@ export const patientSlice = createSlice({
         return patient;
       });
       state.patients = updatedPatients;
-      state.activePatient = action.payload.patient;
+      state.activePatient = null;
+      state.isLoading = false;
     },
     setActivePatient: (state, action) => {
       state.activePatient = action.payload;
@@ -51,7 +49,6 @@ export const patientSlice = createSlice({
 });
 
 export const {
-  setLoading,
   setPatients,
   addNewPatient,
   updatePatient,

@@ -8,3 +8,5 @@ export * from './NewPatient';
 export * from './EditPatient';
 export * from './EditProfile';
 export * from './ChangePassword';
+export * from './NotFoundLogin';
+export * from './NotFoundAdmin';

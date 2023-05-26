@@ -1,21 +1,18 @@
 import { Form, Formik } from 'formik';
-import { Link, useNavigate } from 'react-router-dom';
-import { initialValuesLogin } from '../schemas/initialValues';
-import { loginSchema } from '../schemas/schemas';
+import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { Title } from '../components';
 import { SubmitButton } from '../components/buttons';
 import { InputPassword, InputText } from '../components/inputs';
-import { useDispatch } from 'react-redux';
+import { initialValuesLogin } from '../schemas/initialValues';
+import { loginSchema } from '../schemas/schemas';
 import { startLogin } from '../store/thunks';
 
 export const Login = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const handleLogin = (values, onSubmitProps) => {
+  const handleLogin = (values) => {
     dispatch(startLogin(values));
-    onSubmitProps.resetForm();
-    navigate('/admin');
   };
 
   return (
