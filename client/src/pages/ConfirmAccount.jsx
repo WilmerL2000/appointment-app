@@ -11,18 +11,20 @@ export const ConfirmAccount = () => {
   const [confirmed, setConfirmed] = useState(false);
 
   useEffect(() => {
-    return async () => {
-      await confirmAccount(id).then(({ error, msg }) => {
-        if (error) {
-          setMessage(msg);
-          setIsError(true);
-        } else {
-          setMessage(msg);
-          setConfirmed(true);
-        }
-      });
-      setLoading(false);
-    };
+    if (id) {
+      return async () => {
+        await confirmAccount(id).then(({ error, msg }) => {
+          if (error) {
+            setMessage(msg);
+            setIsError(true);
+          } else {
+            setMessage(msg);
+            setConfirmed(true);
+          }
+        });
+        setLoading(false);
+      };
+    }
   }, [id]);
 
   return (
