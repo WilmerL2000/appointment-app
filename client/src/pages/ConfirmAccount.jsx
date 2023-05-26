@@ -23,7 +23,7 @@ export const ConfirmAccount = () => {
       });
       setLoading(false);
     };
-  }, []);
+  }, [id]);
 
   return (
     <>
