@@ -45,16 +45,16 @@
 
 ## About The Project
 
-This project is developed with MERN Stack and other technologies. Allows the user to perform CRUD operations on patients and some other functions that will be mentioned below
+This project is developed with MERN Stack and other technologies. Allows the user to perform CRUD operations on patients and some other functions that will be mentioned below.
 
 ### Features
 
-- Registration and login
-- An email is sent with the link and token to confirm the registered account
-- Option "forgot password" and an email is sent with the link and token to enter a new password
-- Register, edit, list and delete patients
-- Edit profile information
-- Change password
+- Registration and login.
+- An email is sent with the link and token to confirm the registered account.
+- Option "forgot password" and an email is sent with the link and token to enter a new password.
+- Register, edit, list and delete patients.
+- Edit profile information.
+- Change password.
 
 ### Tech Stack
 
