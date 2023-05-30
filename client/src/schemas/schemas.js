@@ -3,11 +3,8 @@ const phoneRegExp =
   /^[\\+]?[(]?[0-9]{3}[)]?[-\s\\.]?[0-9]{3}[-\s\\.]?[0-9]{4,6}$/;
 
 const loginSchema = yup.object().shape({
-  email: yup
-    .string()
-    .email('Email inválido.')
-    .required('El campo email es obligatorio.'),
-  password: yup.string().required('El campo contraseña es obligatorio.'),
+  email: yup.string().email('Email inválido.'),
+  password: yup.string(),
 });
 
 const registerSchema = yup.object().shape({
