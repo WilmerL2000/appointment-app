@@ -160,9 +160,7 @@ This project is developed with MERN Stack and other technologies. Allows the use
         <br>1.1.1
       </td>       
     </tr>
-  </table>
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+</table>
 
 ### Backend
 
