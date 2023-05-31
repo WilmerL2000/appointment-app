@@ -9,6 +9,18 @@
   </p>
 </div>
 
+## Test User
+
+- Email:
+  ```
+   test@gmail.com
+  ```
+- Password:
+  ```
+   Test1234
+  ```
+  <br/>
+
 <!-- TABLE OF CONTENTS -->
 <details>
   <summary>
@@ -20,7 +32,12 @@
     <li>
       <a href="#about-the-project">About The Project</a>
       <ul>
-        <li><a href="#tech-stack">Tech Stack</a></li>
+        <li><a href="#tech-stack">Tech Stack</a>
+          <ul>
+            <li><a href="#desktop">Frontend</a></li>
+            <li><a href="#mobile">Backend</a></li>
+        </ul>
+        </li>
         <li><a href="#features">Features</a></li>
       </ul>
     </li>
@@ -58,6 +75,8 @@ This project is developed with MERN Stack and other technologies. Allows the use
 
 ### Tech Stack
 
+### Frontend
+
 <table>
     <tr>
       <td align="center" width="96">          
@@ -71,9 +90,23 @@ This project is developed with MERN Stack and other technologies. Allows the use
           <img src="https://res.cloudinary.com/wils09/image/upload/v1682487163/GitHub/assets/react_original_logo_icon_146374_whazfv.png" width="48" height="48" alt="React" />
         <br><strong>React</strong>        
       </td>      
+      <td align="center" width="96">
+          <img src="https://res.cloudinary.com/wils09/image/upload/v1685557673/GitHub/assets/react-router_kpwvqc.png" width="48" height="48" alt="React Router Dom" />
+        <br><strong>React Router Dom</strong>        
+      </td>      
         <td align="center" width="96">
           <img src="https://res.cloudinary.com/wils09/image/upload/v1682487162/GitHub/assets/redux_original_logo_icon_146365_kycmj9.png" width="48" height="48" alt="Redux" />
         <br><strong>Redux</strong>        
+      </td> 
+      </td>      
+        <td align="center" width="96">
+          <img src="https://res.cloudinary.com/wils09/image/upload/v1682487162/GitHub/assets/redux_original_logo_icon_146365_kycmj9.png" width="48" height="48" alt="Redux Toolkit" />
+        <br><strong>Redux Toolkit</strong>        
+      </td> 
+      </td>      
+        <td align="center" width="96">
+          <img src="https://res.cloudinary.com/wils09/image/upload/v1682487162/GitHub/assets/redux_original_logo_icon_146365_kycmj9.png" width="48" height="48" alt="Redux Persist" />
+        <br><strong>Redux Persist</strong>        
       </td> 
       <td align="center" width="96">
           <img src="https://res.cloudinary.com/wils09/image/upload/v1682487162/GitHub/assets/file_type_tailwind_icon_130128_mwu7ie.png" width="48" height="48" alt="Tailwind CSS" />
@@ -82,7 +115,62 @@ This project is developed with MERN Stack and other technologies. Allows the use
       <td align="center" width="96">
           <img src="https://res.cloudinary.com/wils09/image/upload/v1682537001/GitHub/assets/axios_hhohil.png" width="48" height="48" alt="Axios" />
         <br><strong>Axios</strong>        
+      </td>
+      <td align="center" width="96">
+          <img src="https://res.cloudinary.com/wils09/image/upload/v1684018369/GitHub/assets/formik_ah64vc.png" width="48" height="48" alt="Formik" />
+        <br><strong>Formik</strong>        
       </td>     
+      <td align="center" width="96">
+          <img src="https://res.cloudinary.com/wils09/image/upload/v1685561154/GitHub/assets/yup_lvnwhs.png" width="48" height="48" alt="Yup" />
+        <br><strong>Yup</strong>        
+      </td>     
+    </tr>
+     <tr>
+      <td align="center" width="96">          
+        <br><strong>Version</strong>
+      </td>      
+      <td align="center" width="96">
+        <br>4.3.2
+      </td>     
+      <td align="center" width="96">
+        <br>18.2.0
+      </td>     
+      <td align="center" width="96">
+        <br>6.11.2
+      </td>     
+      <td align="center" width="96">
+        <br>8.0.5
+      </td>     
+      <td align="center" width="96">
+        <br>1.9.5
+      </td>     
+      <td align="center" width="96">
+        <br>6.0.0
+      </td>       
+      <td align="center" width="96">
+        <br>3.3.2
+      </td>       
+      <td align="center" width="96">
+        <br>1.4.0
+      </td>       
+      <td align="center" width="96">
+        <br>2.2.9
+      </td>       
+      <td align="center" width="96">
+        <br>1.1.1
+      </td>       
+    </tr>
+  </table>
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+### Backend
+
+<table>
+    <tr>
+      <td align="center" width="96">          
+        <br><strong>Tech</strong>
+      </td>           
       <td align="center" width="96">
           <img src="https://res.cloudinary.com/wils09/image/upload/v1682564470/GitHub/assets/express_jzkx6a.png" width="48" height="48" alt="Express.js" />
         <br><strong>Express.js</strong>        
@@ -100,29 +188,31 @@ This project is developed with MERN Stack and other technologies. Allows the use
         <br><strong>JWT</strong>        
       </td>     
       <td align="center" width="96">
-          <img src="https://res.cloudinary.com/wils09/image/upload/v1684018369/GitHub/assets/formik_ah64vc.png" width="48" height="48" alt="Formik" />
-        <br><strong>Formik</strong>        
+          <img src="https://res.cloudinary.com/wils09/image/upload/v1685558352/GitHub/assets/dotenv_acghvx.png" width="48" height="48" alt="Dotenv" />
+        <br><strong>Dotenv</strong>        
+      </td>     
+      <td align="center" width="96">
+          <img src="https://res.cloudinary.com/wils09/image/upload/v1685561658/GitHub/assets/nodemailer_ei3cer.png" width="48" height="48" alt="Nodemailer" />
+        <br><strong>Nodemailer</strong>        
+      </td>     
+      <td align="center" width="96">
+          <img src="https://res.cloudinary.com/wils09/image/upload/v1685561635/GitHub/assets/nodemon_gjzsok.png" width="48" height="48" alt="Nodemon" />
+        <br><strong>Nodemon</strong>        
+      </td>     
+      <td align="center" width="96">
+        <br><strong>Bcrypt</strong>        
+      </td>     
+      <td align="center" width="96">
+        <br><strong>Cors</strong>        
+      </td>     
+      <td align="center" width="96">
+        <br><strong>Mongoose</strong>        
       </td>     
     </tr>
      <tr>
       <td align="center" width="96">          
         <br><strong>Version</strong>
-      </td>      
-      <td align="center" width="96">
-        <br>4.3.2
-      </td>     
-      <td align="center" width="96">
-        <br>18.2.0
-      </td>     
-      <td align="center" width="96">
-        <br>8.0.5
-      </td>     
-      <td align="center" width="96">
-        <br>3.3.2
-      </td>     
-      <td align="center" width="96">
-        <br>1.4.0
-      </td>     
+      </td>        
       <td align="center" width="96">
         <br>4.18.2
       </td>     
@@ -136,7 +226,22 @@ This project is developed with MERN Stack and other technologies. Allows the use
         <br>9.0.0
       </td>     
       <td align="center" width="96">
-        <br>2.2.9
+        <br>16.0.3
+      </td>       
+      <td align="center" width="96">
+        <br>6.9.2
+      </td>       
+      <td align="center" width="96">
+        <br>2.0.22
+      </td>       
+      <td align="center" width="96">
+        <br>5.1.0
+      </td>       
+      <td align="center" width="96">
+        <br>2.8.5
+      </td>       
+      <td align="center" width="96">
+        <br>7.2.0
       </td>       
     </tr>
   </table>
