@@ -6,8 +6,9 @@ import {
   deletePatient,
   updateProfile,
   savePassword,
+  register,
 } from '../api/v1/functions';
-import { setLogout, setLogin, setUser } from './authSlice';
+import { setLogout, setLogin, setUser, setLoading } from './authSlice';
 import {
   clearPatientsLogout,
   setPatients,
@@ -27,8 +28,35 @@ import {
  */
 const startLogin = (values) => {
   return async (dispatch) => {
-    const { token, user } = await login(values);
-    dispatch(setLogin({ token, user }));
+    dispatch(setLoading());
+    const { token, user, ok } = await login(values);
+    if (ok) {
+      dispatch(setLogin({ token, user }));
+    } else {
+      dispatch(setLoading());
+    }
+  };
+};
+
+/**
+ * This function starts a registration process, dispatches a loading action, registers the user with
+ * the provided values, dispatches another loading action, and navigates to the home page.
+ * @param values - an object containing the values to be used for registration
+ * @param navigate - `navigate` is a function that is used to navigate to a different page or route in
+ * the application. It is typically provided by a routing library such as React Router. In this code
+ * snippet, it is used to navigate to the home page after the registration process is complete.
+ * @returns The function `startRegister` is returning an asynchronous function that takes in `dispatch`
+ * and `navigate` as arguments. This function dispatches the `setLoading` action, calls the `register`
+ * function with the `values` argument, dispatches the `setLoading` action again, and finally navigates
+ * to the home page (`'/'`) using the `navigate` function.
+ */
+const startRegister = (values, navigate, onSubmitProps) => {
+  return async (dispatch) => {
+    dispatch(setLoading());
+    await register(values);
+    dispatch(setLoading());
+    onSubmitProps.resetForm();
+    navigate('/');
   };
 };
 
@@ -152,6 +180,7 @@ const startChangePassword = (values) => {
 
 export {
   startLogin,
+  startRegister,
   startLogout,
   startLoadingInfo,
   startSavePatient,

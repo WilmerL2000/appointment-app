@@ -6,7 +6,11 @@ function PatienList() {
 
   return (
     <div className="md:px-10 px-5 py-8 bg-gray-200 rounded-lg lg:grid lg:grid-cols-3 gap-5">
-      <PatienItem patients={patients} />
+      {patients.length ? (
+        <PatienItem patients={patients} />
+      ) : (
+        <div className="font-bold text-xl">No hay pacientes</div>
+      )}
     </div>
   );
 }

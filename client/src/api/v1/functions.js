@@ -15,9 +15,10 @@ import { toast } from 'sonner';
 const login = async (values) => {
   try {
     const { data } = await vetApi.post('/login', values);
-    return { token: data.token, user: data.user };
+    return { token: data.token, user: data.user, ok: true };
   } catch (error) {
     toast.error(error.response.data.msg);
+    return { token: null, user: null, ok: false };
   }
 };
 

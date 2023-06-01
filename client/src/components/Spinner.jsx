@@ -1,7 +1,7 @@
 function Spinner() {
   return (
     <div
-      className="inline-block h-10 w-10 animate-spin rounded-full border-4 border-solid border-indigo-600 
+      className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-indigo-300 
       border-current border-r-transparent align-[-0.125em] text-primary motion-reduce:animate-[spin_1.5s_linear_infinite]"
       role="status"
     >

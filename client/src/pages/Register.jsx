@@ -6,20 +6,19 @@ import { SubmitButton } from '../components/buttons';
 import { InputPassword, InputText } from '../components/inputs';
 import { initialValuesRegister } from '../schemas/initialValues';
 import { registerSchema } from '../schemas/schemas';
+import { useDispatch } from 'react-redux';
+import { startRegister } from '../store/thunks';
 
 export const Register = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   /**
-   * This function handles registration by calling the register function and awaits its completion
-   * before moving on to the next line of code.
+   * This function handles registration by dispatching a startRegister action with provided values and
+   * navigation, and passing onSubmitProps.
    */
-  const handleRegister = async (values, onSubmitProps) => {
-    await register(values);
-    onSubmitProps.resetForm();
-    setTimeout(() => {
-      navigate('/');
-    }, 2500);
+  const handleRegister = (values, onSubmitProps) => {
+    dispatch(startRegister(values, navigate, onSubmitProps));
   };
 
   return (
