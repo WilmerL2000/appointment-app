@@ -1,21 +1,16 @@
 import { Form, Formik } from 'formik';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import { SubmitButton } from '../../components/buttons';
 import { InputPassword } from '../../components/inputs';
 import { changePasswordSchema } from '../../schemas/schemas';
 import { startChangePassword } from '../../store/thunks';
 
 function ChangePasswordForm() {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleNewPassword = (values, onSubmitProps) => {
     dispatch(startChangePassword(values));
     onSubmitProps.resetForm();
-    setTimeout(() => {
-      navigate('/admin');
-    }, 2500);
   };
 
   return (
