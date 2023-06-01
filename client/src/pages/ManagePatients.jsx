@@ -1,11 +1,7 @@
 import { Link } from 'react-router-dom';
 import { PatietnsList } from '../components';
-import Spinner from '../components/Spinner';
-import { useSelector } from 'react-redux';
 
 export const ManagePatients = () => {
-  const { isLoading } = useSelector((state) => state.patient);
-
   return (
     <div className="flex flex-col gap-6 ">
       <div className="flex justify-between items-center text-white bg-indigo-600 md:p-3 p-2 rounded-lg">
@@ -32,13 +28,7 @@ export const ManagePatients = () => {
         </Link>
       </div>
       <div>
-        {isLoading ? (
-          <div className="flex justify-center">
-            <Spinner />
-          </div>
-        ) : (
-          <PatietnsList />
-        )}
+        <PatietnsList />
       </div>
     </div>
   );

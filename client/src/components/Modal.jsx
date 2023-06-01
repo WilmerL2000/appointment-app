@@ -1,9 +1,7 @@
-import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { startDeletePatient } from '../store/thunks';
 
 function Modal({ setOpen }) {
-  const [confirm, setConfirm] = useState(false);
   const { patientIdToDelete } = useSelector((state) => state.patient);
   const dispatch = useDispatch();
 
